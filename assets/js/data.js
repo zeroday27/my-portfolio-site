@@ -14,6 +14,7 @@ window.PORTFOLIO = {
       linkedin: "https://www.linkedin.com/in/ko-ko-naing-0410b5158/",
       credly:   "https://www.credly.com/users/ko-ko-naing_kai/badges/credly",
       yangonai: "https://www.yangonai.com/",
+      github:   "https://github.com/zeroday27",
       email:    "kokonaingcloud@gmail.com"
     }
   },

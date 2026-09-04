@@ -206,3 +206,14 @@ a.cert:hover{color:var(--amber-700)}
 a.cert:hover .ext{color:var(--amber-700)}
 
 .pet[hidden]{display:none}
+
+/* gliding amber highlight for the contact buttons */
+.glide{position:relative}
+.glide .glider{position:absolute;left:0;top:0;width:0;height:48px;border-radius:999px;background:var(--amber);box-shadow:0 12px 28px rgba(246,130,31,.3);z-index:0;pointer-events:none;transition:transform .45s var(--ease),width .45s var(--ease),height .45s var(--ease)}
+.glide .btn{position:relative;z-index:1;background:transparent;transition:color .25s,border-color .25s,transform .25s var(--ease)}
+.glide .btn.on{color:#fff;border-color:transparent}
+.glide .btn:hover{background:transparent;transform:none}
+@media(prefers-reduced-motion:reduce){.glide .glider{transition:none}}
+/* footer links */
+footer .flinks{display:flex;gap:16px}footer .flinks a{color:var(--ink-3)}footer .flinks a:hover{color:var(--amber-700)}
+.cert .ext{display:none}

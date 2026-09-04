@@ -19,7 +19,19 @@
 
   /* ---- contact links ---- */
   $('#link-email').href = 'mailto:' + D.person.links.email; $('#link-linkedin').href = D.person.links.linkedin;
-  $('#link-credly').href = D.person.links.credly; $('#link-yangonai').href = D.person.links.yangonai;
+  $('#link-credly').href = D.person.links.credly; $('#link-yangonai').href = D.person.links.yangonai; $('#link-github').href = D.person.links.github;
+  $('#f-github').href = D.person.links.github; $('#f-linkedin').href = D.person.links.linkedin; $('#f-credly').href = D.person.links.credly;
+
+  /* ---- contact buttons: the amber pill glides to whichever button is hovered or focused ---- */
+  (function glide() {
+    const box = $('#contact-ctas'); if (!box) return;
+    const g = box.querySelector('.glider'), btns = [...box.querySelectorAll('.btn')]; let home = btns[0];
+    const moveTo = (b) => { btns.forEach(x => x.classList.toggle('on', x === b)); g.style.width = b.offsetWidth + 'px'; g.style.height = b.offsetHeight + 'px'; g.style.transform = `translate(${b.offsetLeft}px, ${b.offsetTop}px)`; };
+    btns.forEach(b => { b.addEventListener('mouseenter', () => moveTo(b)); b.addEventListener('focus', () => moveTo(b)); });
+    box.addEventListener('mouseleave', () => moveTo(home)); box.addEventListener('focusout', (e) => { if (!box.contains(e.relatedTarget)) moveTo(home); });
+    const settle = () => { g.style.transition = 'none'; moveTo(home); requestAnimationFrame(() => { g.style.transition = ''; }); };
+    addEventListener('resize', settle); addEventListener('load', settle); setTimeout(settle, 50); setTimeout(settle, 900);
+  })();
   $('#yr').textContent = new Date().getFullYear();
 
   /* ---- about ---- */
@@ -64,7 +76,7 @@
   const sg = $('#skill-grid');
   Object.entries(D.skills).forEach(([k, arr], i) => { const c = el('div', 'skill reveal', `<h4>${k}</h4><div class="tags">${arr.map(t => `<span class="tag">${t}</span>`).join('')}</div>`); c.style.setProperty('--d', (i % 3) * 80 + 'ms'); sg.appendChild(c); });
   const cg = $('#certs');
-  D.certs.forEach((ct, i) => { const c = el('a', 'cert reveal', `<span class="chk">✓</span><span>${ct.name}</span><span class="ext">Credly ↗</span>`); c.href = ct.url; c.target = '_blank'; c.rel = 'noopener'; c.style.setProperty('--d', (i % 3) * 60 + 'ms'); cg.appendChild(c); });
+  D.certs.forEach((ct, i) => { const c = el('a', 'cert reveal', `<span class="chk">✓</span><span>${ct.name}</span>`); c.href = ct.url; c.target = '_blank'; c.rel = 'noopener'; c.style.setProperty('--d', (i % 3) * 60 + 'ms'); cg.appendChild(c); });
   const fl = $('#faq-list');
   D.faq.forEach(f => { const d = el('details', 'reveal', `<summary><span>${f.q}</span><span class="pm">+</span></summary><div class="a">${f.a}</div>`); fl.appendChild(d); });
 
