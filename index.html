@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ko Ko Naing · Cloud & Infrastructure Architect</title>
+<meta name="description" content="Ko Ko Naing (Nico): ten years from a language degree and a helpdesk queue to multi-cloud architecture and AI operations. A scroll journey with skills analytics.">
+<meta name="theme-color" content="#F4F1EC">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">KN</span><span>Ko Ko Naing</span></a>
+    <a class="btn btn-primary" href="#contact">Get in touch</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap grid">
+    <div>
+      <span class="kicker" id="hero-kicker">Nico · Cloud & Infrastructure Architect</span>
+      <h1 class="name">Ko Ko<br>Naing<span class="dot">.</span></h1>
+      <p class="line">I build the systems people rely on, from <span class="w" id="hero-word">helpdesk tickets</span></p>
+      <div class="ctas">
+        <a class="btn btn-amber" href="#journey">Read the journey</a>
+        <a class="btn btn-ghost" href="#analytics">See the analytics</a>
+      </div>
+      <div class="meta"><span id="meta-loc"></span><span>·</span><span>Open to SG · ANZ · EU · US</span><span>·</span><span>10+ years</span><span>·</span><span>4 clouds in production</span></div>
+    </div>
+    <div class="portrait" id="portrait">
+      <div class="glow"></div>
+      <div class="mono-fallback">KN</div>
+      <img id="portrait-img" alt="Portrait of Ko Ko Naing" hidden>
+      <span class="badge">Bangkok · UTC+7</span>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#about" aria-label="Scroll to about"><span>Scroll</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+</header>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker reveal">About me</span>
+      <h2 class="reveal" style="--d:80ms">Ten years, no skipped layers.</h2>
+    </div>
+    <div class="promises" id="promises"></div>
+  </div>
+</section>
+
+<section class="journey" id="journey">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker reveal">The journey</span>
+      <h2 class="reveal" style="--d:80ms">From a language degree to a four-cloud estate.</h2>
+    </div>
+    <div class="mobilepin" id="mobilepin"><div><div class="year" id="m-year">2012</div><div class="span" id="m-span"></div></div><div class="idx" id="m-idx"></div></div>
+    <div class="jgrid">
+      <aside class="pin" id="pin">
+        <div>
+          <div class="idx" id="p-idx">01 / 07</div>
+          <div class="year" id="p-year">2012</div>
+          <div class="span" id="p-span"></div>
+        </div>
+        <div class="rail" id="rail"></div>
+      </aside>
+      <div class="chapters" id="chapters"></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="proof">
+  <div class="wrap"><div class="grid" id="proof-grid"></div></div>
+</section>
+
+<section class="analytics" id="analytics" data-theme="dark">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker reveal">Motion analytics</span>
+      <h2 class="reveal" style="--d:80ms">How the work itself changed shape.</h2>
+      <p class="muted reveal" style="--d:160ms;margin-top:14px">Scrub through the eras or press play. The radar shows self-assessed depth per domain; the bars show where the hours went. Both read from one data file.</p>
+    </div>
+    <div class="scrubber" id="scrubber"></div>
+    <div class="charts">
+      <div class="card">
+        <div class="era-readout"><span class="big" id="ro-role"></span><span class="yrs" id="ro-years"></span></div>
+        <div class="pet" id="pet" hidden aria-hidden="true"><svg viewBox="0 0 120 80" width="112" height="76"><g class="pet-body"><path d="M30 60h60a16 16 0 0 0 2-32 22 22 0 0 0-42-6 18 18 0 0 0-26 14 12 12 0 0 0 6 24z" fill="#22D3EE"/><g class="pet-eyes"><circle cx="52" cy="42" r="4" fill="#05080F"/><circle cx="72" cy="42" r="4" fill="#05080F"/></g><path class="pet-smile" d="M54 52q8 6 16 0" stroke="#05080F" stroke-width="2.5" fill="none" stroke-linecap="round"/></g><g class="pet-orbit"><circle cx="100" cy="24" r="3" fill="#F6821F"/></g></svg><span>Projection</span></div>
+        <h4>Skill depth by domain</h4>
+        <canvas id="radar" height="340"></canvas>
+        <p class="sub" id="ro-org"></p>
+      </div>
+      <div class="card">
+        <h4>Where the hours went (this era)</h4>
+        <canvas id="mix" height="340"></canvas>
+        <p class="sub">Self-assessed share of working time, per era.</p>
+      </div>
+      <div class="card wide">
+        <h4>Task mix across the whole journey</h4>
+        <canvas id="stream" height="260"></canvas>
+        <p class="sub">Stacked by domain, 2016 to 2026. Support shrinks, cloud and automation grow, AI appears. The dashed tail after 2026 is a projection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker reveal">Selected work</span>
+      <h2 class="reveal" style="--d:80ms">Problem, what was built, what happened.</h2>
+    </div>
+    <div class="workgrid" id="work-grid"></div>
+  </div>
+</section>
+
+<section class="skills" id="skills">
+  <div class="wrap">
+    <span class="kicker reveal">Skills & certifications</span>
+    <h2 class="reveal" style="--d:80ms">The toolbox, grouped honestly.</h2>
+    <div class="skillgrid" id="skill-grid"></div>
+    <div class="certs" id="certs"></div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker reveal">Questions worth asking</span>
+      <h2 class="reveal" style="--d:80ms">Before we work together.</h2>
+    </div>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="kicker reveal">Next chapter</span>
+    <h2 class="reveal" style="--d:80ms">Have a hard infrastructure problem?</h2>
+    <p class="muted reveal" style="--d:160ms">Cloud architecture, infrastructure and platform engineering, or AI in production with brakes. Based in Bangkok and open to roles in Singapore, Australia and New Zealand, the EU and the US.</p>
+    <div class="ctas reveal" style="--d:240ms">
+      <a class="btn btn-amber" id="link-email" href="#">Email me</a>
+      <a class="btn btn-ghost" id="link-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" id="link-credly" href="#" target="_blank" rel="noopener">Certifications</a>
+      <a class="btn btn-ghost" id="link-yangonai" href="#" target="_blank" rel="noopener">Yangon AI</a>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap"><span>© <span id="yr"></span> Ko Ko Naing</span><span>No client-confidential material on this site.</span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
