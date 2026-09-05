@@ -9,9 +9,9 @@
 
   /* ---- hero ---- */
   $('#meta-loc').textContent = D.person.location;
-  const words = ['helpdesk tickets', 'Windows and VMware', 'SAP HANA on Linux', 'a cloud service built from scratch', 'a four-cloud estate', 'Kubernetes platforms', 'AI operations, with brakes'];
+  const words = ['helpdesk tickets', 'Windows and VMware', 'SAP HANA on Linux', 'SAP cloud services', 'a four-cloud estate', 'Kubernetes platforms', 'AI operations'];
   const w = $('#hero-word'); let wi = 0;
-  if (!reduced) setInterval(() => { w.classList.add('out'); setTimeout(() => { wi = (wi + 1) % words.length; w.textContent = words[wi]; w.classList.remove('out'); }, 350); }, 2400);
+  if (!reduced) setInterval(() => { w.classList.add('out'); setTimeout(() => { wi = (wi + 1) % words.length; w.textContent = words[wi]; w.classList.remove('out'); }, 300); }, 2600);
   const img = $('#portrait-img'); img.src = 'assets/img/portrait.jpg';
   img.onload = () => { img.hidden = false; $('#portrait .mono-fallback').style.display = 'none'; $('#portrait').classList.add('has-img'); };
   const portrait = $('#portrait');
