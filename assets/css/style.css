@@ -217,3 +217,11 @@ a.cert:hover .ext{color:var(--amber-700)}
 /* footer links */
 footer .flinks{display:flex;gap:16px}footer .flinks a{color:var(--ink-3)}footer .flinks a:hover{color:var(--amber-700)}
 .cert .ext{display:none}
+
+/* hero line: static sentence + one non-wrapping rotating line, so the layout never shifts */
+.hero .line{max-width:none;min-height:0}
+.hero .line .l1,.hero .line .l2{display:block}
+.hero .line .l2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-bottom:4px}
+.hero .line .w{transition:opacity .3s}
+.hero .line .w.out{opacity:0;transform:none}
+@media(max-width:900px){.hero .line{font-size:clamp(19px,5.4vw,26px)}}
