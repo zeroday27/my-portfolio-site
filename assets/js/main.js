@@ -68,7 +68,7 @@
     const pre = s.prefixSuffix ? `<span class="sfx">${s.suffix}</span>` : '', post = s.prefixSuffix ? '' : `<span class="sfx">${s.suffix}</span>`;
     const c = el('div', 'item reveal', `<div class="num">${pre}<span data-count="${s.value}">0</span>${post}</div><div class="lbl">${s.label}</div>`); c.style.setProperty('--d', (i * 60) + 'ms'); pg.appendChild(c);
   });
-  const countUp = (node) => { const target = +node.dataset.count, dur = reduced ? 0 : 1300, t0 = performance.now(); const step = (t) => { const p = dur ? Math.min(1, (t - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3); node.textContent = Math.round(target * e); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
+  const countUp = (node) => { const target = +node.dataset.count, dur = reduced ? 0 : 1900, t0 = performance.now(); const step = (t) => { const p = dur ? Math.min(1, (t - t0) / dur) : 1, e = 1 - Math.pow(1 - p, 3); node.textContent = Math.round(target * e); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
 
   /* ---- work / skills / certs / faq ---- */
   const wg = $('#work-grid');
@@ -82,7 +82,9 @@
 
   /* ---- reveal observer ---- */
   let analyticsStarted = false;
-  const io = new IntersectionObserver((ents) => { ents.forEach(en => { if (!en.isIntersecting) return; en.target.classList.add('in'); en.target.querySelectorAll('[data-count]').forEach(countUp); if (en.target.id === 'analytics' && !analyticsStarted) startAnalytics(); io.unobserve(en.target); }); }, { threshold: 0.15 });
+  const io = new IntersectionObserver((ents) => { ents.forEach(en => { if (!en.isIntersecting) return; en.target.classList.add('in'); en.target.querySelectorAll('[data-count]').forEach(countUp); if (en.target.id === 'analytics' && !analyticsStarted) startAnalytics(); io.unobserve(en.target); }); }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+  // auto-stagger sibling reveals that have no explicit delay, so each block unfolds top to bottom
+  document.querySelectorAll('.reveal').forEach(n => { if (n.style.getPropertyValue('--d')) return; const sibs = [...n.parentElement.children].filter(x => x.classList.contains('reveal')); const i = sibs.indexOf(n); if (i > 0) n.style.setProperty('--d', Math.min(i, 5) * 110 + 'ms'); });
   document.querySelectorAll('.reveal, #analytics').forEach(n => io.observe(n));
 
   /* ---- analytics: real eras (no hobby) + a labelled projection stop ---- */
