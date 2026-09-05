@@ -189,7 +189,7 @@ window.PORTFOLIO = {
   },
 
   certs: [
-    { name: "AWS Certified Solutions Architect, Associate", url: "https://www.credly.com/users/ko-ko-naing_kai/badges/credly" },
+    { name: "AWS Certified Solutions Architect, Associate", url: "https://www.credly.com/badges/8c735450-453c-4882-bf34-0c91fbc6715a/public_url" },
     { name: "Microsoft Certified: Azure Solutions Architect Expert", url: "https://www.credly.com/users/ko-ko-naing_kai/badges/credly" },
     { name: "Red Hat Certified Engineer (RHCE)", url: "https://www.credly.com/users/ko-ko-naing_kai/badges/credly" },
     { name: "Red Hat Certified System Administrator (RHCSA)", url: "https://www.credly.com/users/ko-ko-naing_kai/badges/credly" },
