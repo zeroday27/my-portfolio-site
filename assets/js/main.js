@@ -52,12 +52,18 @@
   });
   const pYear = $('#p-year'), pSpan = $('#p-span'), pIdx = $('#p-idx'), mYear = $('#m-year'), mSpan = $('#m-span'), mIdx = $('#m-idx');
   let active = -1;
+  function setJourneyProgress(i) {
+    const p = J.length <= 1 ? 0 : i / (J.length - 1);
+    const root = document.documentElement;
+    root.style.setProperty('--journey-p', String(Math.max(0, Math.min(1, p))));
+  }
   function setActive(i) {
     if (i === active) return; active = i; const c = J[i];
     const flip = () => { pYear.textContent = c.year; mYear.textContent = c.year; pSpan.textContent = c.span; mSpan.textContent = c.span; pIdx.textContent = `${pad2(i + 1)} / ${pad2(J.length)}`; mIdx.textContent = pIdx.textContent; };
     if (reduced) flip(); else { pYear.classList.add('flip'); setTimeout(() => { flip(); pYear.classList.remove('flip'); }, 180); }
     [...chs.children].forEach((n, j) => { n.classList.toggle('active', j === i); if (j <= i) n.classList.add('seen'); });
-    [...rail.children].forEach((n, j) => n.classList.toggle('active', j === i));
+    [...rail.children].forEach((n, j) => { n.classList.toggle('active', j === i); n.classList.toggle('seen', j <= i); });
+    setJourneyProgress(i);
   }
   const jio = new IntersectionObserver((ents) => { ents.forEach(e => { if (e.isIntersecting) setActive(+e.target.dataset.i); }); }, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
   [...chs.children].forEach(n => jio.observe(n)); setActive(0);
@@ -72,13 +78,53 @@
 
   /* ---- work / skills / certs / faq ---- */
   const wg = $('#work-grid');
-  D.work.forEach((wk, i) => { const c = el('article', 'wcard reveal', `<div class="era">${wk.era}</div><h3>${wk.title}</h3><dl><dt>Problem</dt><dd>${wk.problem}</dd><dt>Built</dt><dd>${wk.built}</dd><dt>Result</dt><dd>${wk.result}</dd></dl>${wk.link ? `<a class="more" href="${wk.link}" target="_blank" rel="noopener">Open project →</a>` : ''}`); c.style.setProperty('--d', (i % 3) * 90 + 'ms'); wg.appendChild(c); });
+  const leadHit = D.work.findIndex(w => /13-site CMS|managed Kubernetes/i.test(w.title));
+  const leadIdx = leadHit >= 0 ? leadHit : 0;
+  const orderedWork = [D.work[leadIdx], ...D.work.filter((_, i) => i !== leadIdx)];
+  const leadMetrics = ['<b>0</b> unplanned downtime', '<b>112</b> pods/node', '<b>13</b> sites migrated'];
+  orderedWork.forEach((wk, i) => {
+    const lead = i === 0;
+    const metricsHtml = lead ? `<div class="metrics">${leadMetrics.map(m => `<span>${m}</span>`).join('')}</div>` : '';
+    const c = el('article', 'wcard reveal' + (lead ? ' lead' : ''), `<div class="era">${wk.era}</div><h3>${wk.title}</h3><dl><dt>Problem</dt><dd>${wk.problem}</dd><dt>Built</dt><dd>${wk.built}</dd><dt>Result</dt><dd>${wk.result}</dd></dl>${metricsHtml}${wk.link ? `<a class="more" href="${wk.link}" target="_blank" rel="noopener">Open project →</a>` : ''}`);
+    c.style.setProperty('--d', (lead ? 0 : (i % 3) * 90) + 'ms');
+    wg.appendChild(c);
+  });
   const sg = $('#skill-grid');
   Object.entries(D.skills).forEach(([k, arr], i) => { const c = el('div', 'skill reveal', `<h4>${k}</h4><div class="tags">${arr.map(t => `<span class="tag">${t}</span>`).join('')}</div>`); c.style.setProperty('--d', (i % 3) * 80 + 'ms'); sg.appendChild(c); });
   const cg = $('#certs');
-  D.certs.forEach((ct, i) => { const c = el('a', 'cert reveal', `<span class="chk">✓</span><span>${ct.name}</span>`); c.href = ct.url; c.target = '_blank'; c.rel = 'noopener'; c.style.setProperty('--d', (i % 3) * 60 + 'ms'); cg.appendChild(c); });
+  const certIssuer = (name) => {
+    if (/AWS/i.test(name)) return 'Amazon Web Services';
+    if (/Microsoft|Azure/i.test(name)) return 'Microsoft';
+    if (/Red Hat|RHCE|RHCSA/i.test(name)) return 'Red Hat';
+    if (/Google/i.test(name)) return 'Google Cloud';
+    return 'Credly';
+  };
+  D.certs.forEach((ct, i) => {
+    const c = el('a', 'cert reveal', `<span class="chk">✓</span><span>${ct.name}</span><span class="issuer">${certIssuer(ct.name)}</span>`);
+    c.href = ct.url; c.target = '_blank'; c.rel = 'noopener'; c.style.setProperty('--d', (i % 3) * 60 + 'ms'); cg.appendChild(c);
+  });
   const fl = $('#faq-list');
   D.faq.forEach(f => { const d = el('details', 'reveal', `<summary><span>${f.q}</span><span class="pm">+</span></summary><div class="a">${f.a}</div>`); fl.appendChild(d); });
+
+  /* ---- nav: scroll progress + section wayfinding ---- */
+  (function navProgress() {
+    const bar = $('#nav-progress-bar');
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+      doc.style.setProperty('--page-p', String(p));
+      if (bar) bar.style.transform = `scaleX(${p})`;
+      let idx = -1;
+      sections.forEach((s, i) => { const r = s.getBoundingClientRect(); if (r.top <= 120 && r.bottom > 120) idx = i; });
+      links.forEach((a, i) => a.classList.toggle('is-active', i === idx));
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    onScroll();
+  })();
 
   /* ---- reveal observer ---- */
   let analyticsStarted = false;
